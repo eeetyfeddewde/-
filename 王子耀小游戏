@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>王子耀游戏</title>
+<style>
+  #game-container {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    justify-content: center;
+    gap: 5px;
+  }
+  .keng { text-align: center; }
+  #prince { grid-column: 2 / 3; }
+  .tu { text-align: center; background-color: #f0e68c; }
+  /* 增加的按钮样式 */
+  #bury-button {
+    font-size: 20px; /* 增大字体大小 */
+    color: white; /* 字体颜色为白色 */
+    background-color: #007bff; /* 背景颜色为蓝色 */
+    padding: 10px 20px; /* 增加内边距 */
+    border: none; /* 移除边框 */
+    border-radius: 5px; /* 圆角边框 */
+    cursor: pointer; /* 鼠标悬停时显示指针 */
+    margin-top: 10px; /* 与游戏容器间隔 */
+  }
+  #bury-button:hover {
+    background-color: #0056b3; /* 鼠标悬停时的背景颜色 */
+  }
+</style>
+</head>
+<body>
+
+<div id="game-container">
+  <div class="keng">坑</div>
+  <div id="prince">王子耀</div>
+  <div class="keng">坑</div>
+  <div class="keng">坑</div>
+  <div class="keng">坑</div>
+  <div class="keng">坑</div>
+</div>
+<!-- 更新按钮的id和样式 -->
+<button id="bury-button" onclick="addTu()">埋</button>
+
+<script>
+  function addTu() {
+    var gameContainer = document.getElementById('game-container');
+    var kengDivs = document.querySelectorAll('.keng');
+    var tuDivs = document.querySelectorAll('.tu');
+    // 检查是否需要在顶部添加土
+    if (tuDivs.length < kengDivs.length) {
+      var tuDiv = document.createElement('div');
+      tuDiv.textContent = '土';
+      tuDiv.className = 'tu';
+      gameContainer.insertBefore(tuDiv, gameContainer.firstChild);
+    } else {
+      // 在底部添加一行新的土元素
+      for (let i = 0; i < 3; i++) {
+        var tuDiv = document.createElement('div');
+        tuDiv.textContent = '土';
+        tuDiv.className = 'tu';
+        gameContainer.appendChild(tuDiv);
+      }
+      // 将王子耀和坑下移一行
+      gameContainer.appendChild(document.querySelector('.keng'));
+      gameContainer.appendChild(document.getElementById('prince'));
+      gameContainer.appendChild(document.querySelectorAll('.keng')[1]);
+    }
+  }
+</script>
+
+</body>
+</html>
